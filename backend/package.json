@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --watch src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.744.0",
+    "@hono-storage/s3": "^0.0.13",
+    "@hono/node-server": "^1.13.8",
+    "@hono/zod-validator": "^0.4.2",
+    "@types/multer": "^1.4.12",
+    "bullmq": "^5.40.2",
+    "dotenv": "^16.4.7",
+    "hono": "^4.7.0",
+    "ioredis": "^5.5.0",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^11.0.5",
+    "zod": "^3.24.1"
+  }
+}
