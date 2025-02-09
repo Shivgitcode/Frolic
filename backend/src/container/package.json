@@ -1,0 +1,18 @@
+{
+  "name": "container",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx tsx --watch index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.744.0",
+    "@types/fluent-ffmpeg": "^2.1.27",
+    "fluent-ffmpeg": "^2.1.3"
+  }
+}
