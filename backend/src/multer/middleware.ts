@@ -1,8 +1,11 @@
-import { HonoS3Storage } from "@hono-storage/s3";
-import { S3Client } from "@aws-sdk/client-s3";
-import { v4 as uuidv4 } from "uuid";
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 import { config } from "dotenv";
 config();
+
 const s3client = new S3Client({
   region: "eu-north-1",
   credentials: {
@@ -11,8 +14,21 @@ const s3client = new S3Client({
   },
 });
 
-export const storage = new HonoS3Storage({
-  key: (_, file) => `${file.originalname}-${uuidv4()}.${file.extension}`,
-  bucket: "shivn-video-bucket",
-  client: s3client,
-});
+export async function putVideo(key: string, bucket: string, body: Buffer) {
+  const command = new PutObjectCommand({
+    Bucket: bucket,
+    Key: key,
+    Body: body,
+  });
+  const response = await s3client.send(command);
+  return response;
+}
+
+export async function getVideo(key: string, bucket: string) {
+  const command = new GetObjectCommand({
+    Bucket: bucket,
+    Key: key,
+  });
+  const result = await s3client.send(command);
+  return result;
+}

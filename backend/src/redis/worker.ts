@@ -1,5 +1,6 @@
 import { Worker } from "bullmq";
 import { connection } from "./server";
+import { getVideo } from "../multer/middleware";
 
 const worker = new Worker(
   "videos",
@@ -21,11 +22,3 @@ worker.on("completed", (job) => {
   console.log(`${job.id}`);
   console.log(job.data);
 });
-// worker.on("failed", (job, err) => {
-//   console.log("inside failed");
-//   console.log(`${job?.id} has failed with ${err.message}`);
-// });
-// worker.on("progress", (job) => {
-//   console.log("inside progress");
-//   console.log(`${job.id} -> ${job.data}`);
-// });

@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "tsx --watch src/index.ts"
+    "dev": "tsx --watch src/index.ts",
+    "dev:worker": "tsx --watch src/redis/worker.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
