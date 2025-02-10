@@ -31,6 +31,7 @@ async function transcode() {
   });
   const originalFilePath = `original-video.mp4`;
   const result = await client.send(command);
+  console.log(result);
   await fs.writeFile(originalFilePath, result.Body as any);
   const promises = resolutions.map(async ({ height, bitrate, name }) => {
     const output = `output_${height}p.m3u8`;

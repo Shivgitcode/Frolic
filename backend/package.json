@@ -13,6 +13,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@aws-sdk/client-ecs": "^3.744.0",
     "@aws-sdk/client-s3": "^3.744.0",
     "@hono-storage/s3": "^0.0.13",
     "@hono/node-server": "^1.13.8",
