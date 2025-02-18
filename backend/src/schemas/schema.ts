@@ -1,6 +1,6 @@
 import { z } from "zod";
 export const formSchema = z.object({
-  email: z.string(),
-  name: z.string(),
-  video: z.instanceof(File),
+	email: z.string(),
+	name: z.string(),
+	video: z.instanceof(File),
 });
