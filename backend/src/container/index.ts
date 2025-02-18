@@ -29,7 +29,7 @@ async function transcode() {
 		Bucket: process.env.BUCKET,
 		Key: process.env.KEY,
 	});
-	const originalFilePath = `original-video.mp4`;
+	const originalFilePath = "original-video.mp4";
 	const result = await client.send(command);
 	console.log(result);
 	await fs.writeFile(originalFilePath, result.Body as any);

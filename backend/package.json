@@ -11,9 +11,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@types/bun": "latest",
-    "husky": "^9.1.7"
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
