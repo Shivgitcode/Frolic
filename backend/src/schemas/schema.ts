@@ -4,3 +4,9 @@ export const formSchema = z.object({
 	name: z.string(),
 	video: z.instanceof(File),
 });
+
+export const SignUpForm = z.object({
+	name: z.string(),
+	email: z.string().email(),
+	password: z.string(),
+});

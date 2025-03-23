@@ -1,38 +1,39 @@
 {
-  "name": "backend",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "dev": "tsx --watch src/index.ts",
-    "dev:worker": "tsx --watch src/redis/worker.ts",
-    "db:migrate": "tsx src/database/migrate.ts",
-    "lint": "biome lint src",
-    "format": "biome format --write src",
-    "prepare": "husky"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@aws-sdk/client-ecs": "^3.744.0",
-    "@aws-sdk/client-s3": "^3.744.0",
-    "@hono-storage/s3": "^0.0.13",
-    "@hono/node-server": "^1.13.8",
-    "@hono/zod-validator": "^0.4.2",
-    "@types/multer": "^1.4.12",
-    "better-auth": "^1.1.17",
-    "bullmq": "^5.40.2",
-    "dotenv": "^16.4.7",
-    "drizzle-kit": "^0.30.4",
-    "drizzle-orm": "^0.39.3",
-    "hono": "^4.7.0",
-    "ioredis": "^5.5.0",
-    "multer": "^1.4.5-lts.1",
-    "postgres": "^3.4.5",
-    "uuid": "^11.0.5",
-    "zod": "^3.24.1"
-  }
+	"name": "backend",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"dev": "tsx --watch src/index.ts",
+		"dev:worker": "tsx --watch src/redis/worker.ts",
+		"db:migrate": "tsx src/database/migrate.ts",
+		"lint": "biome lint src",
+		"format": "biome format --write src",
+		"prepare": "husky"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@aws-sdk/client-ecs": "^3.744.0",
+		"@aws-sdk/client-s3": "^3.744.0",
+		"@hono-storage/s3": "^0.0.13",
+		"@hono/node-server": "^1.13.8",
+		"@hono/zod-validator": "^0.4.2",
+		"@types/multer": "^1.4.12",
+		"better-auth": "^1.1.17",
+		"bullmq": "^5.40.2",
+		"dotenv": "^16.4.7",
+		"drizzle-kit": "^0.30.4",
+		"drizzle-orm": "^0.41.0",
+		"hono": "^4.7.0",
+		"ioredis": "^5.5.0",
+		"multer": "^1.4.5-lts.1",
+		"postgres": "^3.4.5",
+		"uuid": "^11.0.5",
+		"winston": "^3.17.0",
+		"zod": "^3.24.1"
+	}
 }

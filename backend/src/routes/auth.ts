@@ -10,10 +10,13 @@ const authRouter = new Hono<{
 authRouter.get("/session", async (c) => {
 	const session = c.get("session");
 	const user = c.get("user");
-	return c.json({
-		session,
-		user,
-	});
+	return c.json(
+		{
+			session,
+			user,
+		},
+		200,
+	);
 });
 
 export default authRouter;
