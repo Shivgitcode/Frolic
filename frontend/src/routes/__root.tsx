@@ -4,13 +4,12 @@ import {
 	Link,
 	Outlet,
 } from "@tanstack/react-router";
+import "../App.css";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 	{
 		component: () => (
-			<div className=" font-Inter">
-				<Link to="/login">login</Link>
-				<Link to="/signup">signup</Link>
+			<div className=" font-inter">
 				<Outlet />
 			</div>
 		),

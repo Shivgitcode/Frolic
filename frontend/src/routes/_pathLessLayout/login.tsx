@@ -23,7 +23,7 @@ import { LoginSchema, type LoginProp } from "@/validations/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Login } from "@/actions/Login";
-export const Route = createFileRoute("/login")({
+export const Route = createFileRoute("/_pathLessLayout/login")({
 	component: RouteComponent,
 });
 

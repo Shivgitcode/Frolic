@@ -11,79 +11,150 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
-import { Route as SignupImport } from "./routes/signup";
-import { Route as LoginImport } from "./routes/login";
+import { Route as HomeImport } from "./routes/home";
+import { Route as PathLessLayoutRouteImport } from "./routes/_pathLessLayout/route";
+import { Route as IndexImport } from "./routes/index";
+import { Route as PathLessLayoutSignupImport } from "./routes/_pathLessLayout/signup";
+import { Route as PathLessLayoutLoginImport } from "./routes/_pathLessLayout/login";
 
 // Create/Update Routes
 
-const SignupRoute = SignupImport.update({
-	id: "/signup",
-	path: "/signup",
+const HomeRoute = HomeImport.update({
+	id: "/home",
+	path: "/home",
 	getParentRoute: () => rootRoute,
 } as any);
 
-const LoginRoute = LoginImport.update({
+const PathLessLayoutRouteRoute = PathLessLayoutRouteImport.update({
+	id: "/_pathLessLayout",
+	getParentRoute: () => rootRoute,
+} as any);
+
+const IndexRoute = IndexImport.update({
+	id: "/",
+	path: "/",
+	getParentRoute: () => rootRoute,
+} as any);
+
+const PathLessLayoutSignupRoute = PathLessLayoutSignupImport.update({
+	id: "/signup",
+	path: "/signup",
+	getParentRoute: () => PathLessLayoutRouteRoute,
+} as any);
+
+const PathLessLayoutLoginRoute = PathLessLayoutLoginImport.update({
 	id: "/login",
 	path: "/login",
-	getParentRoute: () => rootRoute,
+	getParentRoute: () => PathLessLayoutRouteRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module "@tanstack/react-router" {
 	interface FileRoutesByPath {
-		"/login": {
-			id: "/login";
-			path: "/login";
-			fullPath: "/login";
-			preLoaderRoute: typeof LoginImport;
+		"/": {
+			id: "/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof IndexImport;
 			parentRoute: typeof rootRoute;
 		};
-		"/signup": {
-			id: "/signup";
+		"/_pathLessLayout": {
+			id: "/_pathLessLayout";
+			path: "";
+			fullPath: "";
+			preLoaderRoute: typeof PathLessLayoutRouteImport;
+			parentRoute: typeof rootRoute;
+		};
+		"/home": {
+			id: "/home";
+			path: "/home";
+			fullPath: "/home";
+			preLoaderRoute: typeof HomeImport;
+			parentRoute: typeof rootRoute;
+		};
+		"/_pathLessLayout/login": {
+			id: "/_pathLessLayout/login";
+			path: "/login";
+			fullPath: "/login";
+			preLoaderRoute: typeof PathLessLayoutLoginImport;
+			parentRoute: typeof PathLessLayoutRouteImport;
+		};
+		"/_pathLessLayout/signup": {
+			id: "/_pathLessLayout/signup";
 			path: "/signup";
 			fullPath: "/signup";
-			preLoaderRoute: typeof SignupImport;
-			parentRoute: typeof rootRoute;
+			preLoaderRoute: typeof PathLessLayoutSignupImport;
+			parentRoute: typeof PathLessLayoutRouteImport;
 		};
 	}
 }
 
 // Create and export the route tree
 
+interface PathLessLayoutRouteRouteChildren {
+	PathLessLayoutLoginRoute: typeof PathLessLayoutLoginRoute;
+	PathLessLayoutSignupRoute: typeof PathLessLayoutSignupRoute;
+}
+
+const PathLessLayoutRouteRouteChildren: PathLessLayoutRouteRouteChildren = {
+	PathLessLayoutLoginRoute: PathLessLayoutLoginRoute,
+	PathLessLayoutSignupRoute: PathLessLayoutSignupRoute,
+};
+
+const PathLessLayoutRouteRouteWithChildren =
+	PathLessLayoutRouteRoute._addFileChildren(PathLessLayoutRouteRouteChildren);
+
 export interface FileRoutesByFullPath {
-	"/login": typeof LoginRoute;
-	"/signup": typeof SignupRoute;
+	"/": typeof IndexRoute;
+	"": typeof PathLessLayoutRouteRouteWithChildren;
+	"/home": typeof HomeRoute;
+	"/login": typeof PathLessLayoutLoginRoute;
+	"/signup": typeof PathLessLayoutSignupRoute;
 }
 
 export interface FileRoutesByTo {
-	"/login": typeof LoginRoute;
-	"/signup": typeof SignupRoute;
+	"/": typeof IndexRoute;
+	"": typeof PathLessLayoutRouteRouteWithChildren;
+	"/home": typeof HomeRoute;
+	"/login": typeof PathLessLayoutLoginRoute;
+	"/signup": typeof PathLessLayoutSignupRoute;
 }
 
 export interface FileRoutesById {
 	__root__: typeof rootRoute;
-	"/login": typeof LoginRoute;
-	"/signup": typeof SignupRoute;
+	"/": typeof IndexRoute;
+	"/_pathLessLayout": typeof PathLessLayoutRouteRouteWithChildren;
+	"/home": typeof HomeRoute;
+	"/_pathLessLayout/login": typeof PathLessLayoutLoginRoute;
+	"/_pathLessLayout/signup": typeof PathLessLayoutSignupRoute;
 }
 
 export interface FileRouteTypes {
 	fileRoutesByFullPath: FileRoutesByFullPath;
-	fullPaths: "/login" | "/signup";
+	fullPaths: "/" | "" | "/home" | "/login" | "/signup";
 	fileRoutesByTo: FileRoutesByTo;
-	to: "/login" | "/signup";
-	id: "__root__" | "/login" | "/signup";
+	to: "/" | "" | "/home" | "/login" | "/signup";
+	id:
+		| "__root__"
+		| "/"
+		| "/_pathLessLayout"
+		| "/home"
+		| "/_pathLessLayout/login"
+		| "/_pathLessLayout/signup";
 	fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-	LoginRoute: typeof LoginRoute;
-	SignupRoute: typeof SignupRoute;
+	IndexRoute: typeof IndexRoute;
+	PathLessLayoutRouteRoute: typeof PathLessLayoutRouteRouteWithChildren;
+	HomeRoute: typeof HomeRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
-	LoginRoute: LoginRoute,
-	SignupRoute: SignupRoute,
+	IndexRoute: IndexRoute,
+	PathLessLayoutRouteRoute: PathLessLayoutRouteRouteWithChildren,
+	HomeRoute: HomeRoute,
 };
 
 export const routeTree = rootRoute
@@ -96,15 +167,31 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/login",
-        "/signup"
+        "/",
+        "/_pathLessLayout",
+        "/home"
       ]
     },
-    "/login": {
-      "filePath": "login.tsx"
+    "/": {
+      "filePath": "index.tsx"
     },
-    "/signup": {
-      "filePath": "signup.tsx"
+    "/_pathLessLayout": {
+      "filePath": "_pathLessLayout/route.tsx",
+      "children": [
+        "/_pathLessLayout/login",
+        "/_pathLessLayout/signup"
+      ]
+    },
+    "/home": {
+      "filePath": "home.tsx"
+    },
+    "/_pathLessLayout/login": {
+      "filePath": "_pathLessLayout/login.tsx",
+      "parent": "/_pathLessLayout"
+    },
+    "/_pathLessLayout/signup": {
+      "filePath": "_pathLessLayout/signup.tsx",
+      "parent": "/_pathLessLayout"
     }
   }
 }

@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import {
 	Card,
 	CardHeader,
@@ -24,7 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import Signup from "@/actions/Signup";
 import { toast } from "sonner";
-export const Route = createFileRoute("/signup")({
+export const Route = createFileRoute("/_pathLessLayout/signup")({
 	component: RouteComponent,
 });
 
