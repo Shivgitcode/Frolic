@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
 
 function LandingPage() {
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen min-w-full relative">
 			<HeroSection />
 
 			<section className="py-20 px-4">

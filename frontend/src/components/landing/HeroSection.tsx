@@ -4,7 +4,7 @@ import { Video, Play } from "lucide-react";
 
 const HeroSection = () => {
 	return (
-		<div className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-background to-accent/20 pt-24 pb-32">
+		<div className="relative overflow-hidden min-w-full  bg-gradient-to-br from-primary/20 via-background to-accent/20 pt-24 pb-32 bg-cover">
 			{/* Background Elements */}
 			<div className="absolute -top-24 -left-24 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl opacity-70" />
 			<div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl opacity-70" />

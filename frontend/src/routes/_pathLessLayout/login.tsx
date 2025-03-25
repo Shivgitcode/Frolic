@@ -21,8 +21,8 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { LoginSchema, type LoginProp } from "@/validations/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { Login } from "@/actions/Login";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 export const Route = createFileRoute("/_pathLessLayout/login")({
 	component: RouteComponent,
 });
@@ -31,13 +31,27 @@ function RouteComponent() {
 	const form = useForm<LoginProp>({
 		resolver: zodResolver(LoginSchema),
 	});
-	const { mutateAsync: signIn } = useMutation({
-		mutationFn: Login,
-	});
+	const navigate = Route.useNavigate();
 
-	const onSubmit = (data: LoginProp) => {
+	const onSubmit = async (data: LoginProp) => {
 		console.log(data);
-		signIn(data);
+		await authClient.signIn.email(data, {
+			onRequest: () => {
+				toast.loading("logging In", { id: "sign-in" });
+			},
+			onSuccess: () => {
+				toast.success("logged in successfully");
+
+				toast.dismiss("sign-in");
+				navigate({
+					to: "/home",
+				});
+			},
+			onError: (context) => {
+				toast.error(context.error.message);
+				toast.dismiss("sign-in");
+			},
+		});
 	};
 	return (
 		<Card className="w-full border-accent/20 shadow-lg bg-card/90 backdrop-blur-sm">

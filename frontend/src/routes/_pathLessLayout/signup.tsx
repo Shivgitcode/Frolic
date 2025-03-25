@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import Signup from "@/actions/Signup";
 import { toast } from "sonner";
+import { authClient } from "@/lib/auth-client";
 export const Route = createFileRoute("/_pathLessLayout/signup")({
 	component: RouteComponent,
 });
@@ -33,27 +34,25 @@ function RouteComponent() {
 		resolver: zodResolver(SignupSchema),
 	});
 	const navigate = Route.useNavigate();
-	const { mutateAsync: signUp } = useMutation({
-		mutationFn: Signup,
-		onMutate: () => {
-			toast.loading("signing up", { id: "sign-up" });
-		},
-		onSuccess: async () => {
-			toast.success("signed up successfully");
-			toast.dismiss("sign-up");
-			navigate({
-				to: "/login",
-			});
-		},
-		onError: (err) => {
-			toast.error(err.message);
-			toast.dismiss("sign-up");
-		},
-	});
 
-	const onSubmit = (data: SignupProps) => {
+	const onSubmit = async (data: SignupProps) => {
 		console.log(data);
-		signUp(data);
+		await authClient.signUp.email(data, {
+			onRequest: () => {
+				toast.loading("logging In", { id: "sign-in" });
+			},
+			onSuccess: () => {
+				toast.success("signed up successfully");
+				toast.dismiss("sign-in");
+				navigate({
+					to: "/login",
+				});
+			},
+			onError: (context) => {
+				toast.error(context.error.message);
+				toast.dismiss("sign-in");
+			},
+		});
 	};
 	return (
 		<Card className="w-full border-accent/20 shadow-lg bg-card/90 backdrop-blur-sm">
