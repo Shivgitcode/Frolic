@@ -1,17 +1,17 @@
 import { cn } from "@/lib/utils";
 import {
-	Home,
 	Clock,
-	ThumbsUp,
-	History,
-	PlaySquare,
-	Flame,
-	Music,
-	Gamepad2,
 	Film,
-	Newspaper,
-	Trophy,
+	Flame,
+	Gamepad2,
+	History,
+	Home,
 	Lightbulb,
+	Music,
+	Newspaper,
+	PlaySquare,
+	ThumbsUp,
+	Trophy,
 } from "lucide-react";
 
 interface SidebarProps {

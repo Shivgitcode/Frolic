@@ -1,13 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
-	CardDescription,
-	CardContent,
-	CardFooter,
 } from "@/components/ui/card";
-import { Link } from "@tanstack/react-router";
 import {
 	Form,
 	FormControl,
@@ -17,11 +16,12 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { LoginSchema, type LoginProp } from "@/validations/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "@/lib/auth-client";
+import { type LoginProp, LoginSchema } from "@/validations/validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 export const Route = createFileRoute("/_pathLessLayout/login")({
 	component: RouteComponent,

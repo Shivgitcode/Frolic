@@ -5,8 +5,8 @@
 	},
 	"scripts": {
 		"prepare": "husky",
-		"backend:lint": "biome lint backend/src",
-		"backend:format": "biome check --fix  backend/src"
+		"lint":"biome lint",
+		"lint:fix":"biome check --write"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^4.1.3"

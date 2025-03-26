@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Video, Play } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Play, Video } from "lucide-react";
 
 const HeroSection = () => {
 	return (

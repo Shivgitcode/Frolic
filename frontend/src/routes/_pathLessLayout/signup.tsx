@@ -1,30 +1,28 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
-	CardFooter,
-	CardDescription,
-	CardContent,
 } from "@/components/ui/card";
 import {
 	Form,
+	FormControl,
 	FormField,
 	FormItem,
-	FormControl,
-	FormMessage,
 	FormLabel,
+	FormMessage,
 } from "@/components/ui/form";
-import { Link } from "@tanstack/react-router";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { SignupSchema, type SignupProps } from "@/validations/validation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import Signup from "@/actions/Signup";
-import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import { type SignupProps, SignupSchema } from "@/validations/validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 export const Route = createFileRoute("/_pathLessLayout/signup")({
 	component: RouteComponent,
 });

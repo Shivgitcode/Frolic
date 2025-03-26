@@ -1,5 +1,4 @@
 import { Queue } from "bullmq";
-import { accepts } from "hono/accepts";
 import { connection } from "./server";
 
 const myqueue = new Queue("videos", { connection: connection });

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { Video } from "lucide-react";
 import { Outlet } from "@tanstack/react-router";
+import { Video } from "lucide-react";
 
 export const Route = createFileRoute("/_pathLessLayout")({
 	component: RouteComponent,

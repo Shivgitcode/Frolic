@@ -1,12 +1,12 @@
-import { Hono } from "hono";
-import { logger } from "hono/logger";
 import { serve } from "@hono/node-server";
 import { config } from "dotenv";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { logger } from "hono/logger";
+import { devlogger } from "./logger/log";
+import authRouter from "./routes/auth";
 import videoupload from "./routes/uploads";
 import { auth } from "./utils/auth";
-import authRouter from "./routes/auth";
-import { devlogger } from "./logger/log";
-import { cors } from "hono/cors";
 
 config();
 const app = new Hono<{

@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
 import VideoGrid from "@/components/Video/VideoGrid";
 import Navbar from "@/components/layout/Navbar";
 import Sidebar from "@/components/layout/Sidebar";
 import CategoryPill from "@/components/ui/CategoryPill";
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 export const Route = createFileRoute("/home")({
 	component: Index,
 });

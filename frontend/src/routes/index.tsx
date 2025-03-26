@@ -1,17 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
-import HeroSection from "@/components/landing/HeroSection";
 import FeatureCard from "@/components/landing/FeatureCard";
-import {
-	Video,
-	Shield,
-	Globe,
-	Zap,
-	Users,
-	MonitorPlay,
-	ChevronRight,
-} from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import HeroSection from "@/components/landing/HeroSection";
 import { Button } from "@/components/ui/button";
+import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+import {
+	ChevronRight,
+	Globe,
+	MonitorPlay,
+	Shield,
+	Users,
+	Video,
+	Zap,
+} from "lucide-react";
 
 export const Route = createFileRoute("/")({
 	component: LandingPage,

@@ -1,5 +1,4 @@
 import { createLogger, format, transports } from "winston";
-import winston from "winston/lib/winston/config";
 const { printf, colorize, timestamp, combine, label } = format;
 
 const myFormat = printf(({ level, message, label, timestamp }) => {

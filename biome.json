@@ -7,7 +7,23 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": []
+		"ignore": [
+			"**/node_modules/**",
+			"**/dist/**",
+			"**/build/**",
+			"**/.next/**",
+			"**/coverage/**",
+			"**/*.test.js",
+			"**/*.config.js",
+			"./backend/public/**",
+			"./frontend/public/**",
+			"./frontend/tsconfig.node.json",
+			"./frontend/tsconfig.json",
+			"./frontend/tsconfig.app.json",
+			"./frontend/src/components/ui/**"
+		],
+
+		"include": ["./frontend/*/**", "./backend/**/*"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -20,15 +36,22 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
+			"a11y":{
+				"useValidAnchor":"warn"
+			},
 			"suspicious": {
-				"noExplicitAny": "off"
+				"noArrayIndexKey": "warn",
+				"noExplicitAny": "warn"
+			},
+			"correctness": {
+				"useExhaustiveDependencies": "off",
+				"noUnusedImports": "warn"
 			}
 		}
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double",
-			"enabled": true
+			"quoteStyle": "double"
 		}
 	}
 }

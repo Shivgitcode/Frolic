@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Search, Bell, User, Menu, Video, X, LogIn, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link, useLocation } from "@tanstack/react-router";
+import { Bell, Home, LogIn, Menu, Search, User, Video, X } from "lucide-react";
+import { useState } from "react";
 
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
 	const [searchFocused, setSearchFocused] = useState(false);
