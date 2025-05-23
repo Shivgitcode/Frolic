@@ -7,7 +7,7 @@ import { config } from "dotenv";
 config();
 
 const s3client = new S3Client({
-	region: "eu-north-1",
+	region: "us-east-1",
 	credentials: {
 		accessKeyId: process.env.ACCESS_KEY,
 		secretAccessKey: process.env.SECRET_ACCESS_KEY,

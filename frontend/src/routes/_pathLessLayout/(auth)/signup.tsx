@@ -23,7 +23,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-export const Route = createFileRoute("/_pathLessLayout/signup")({
+export const Route = createFileRoute("/_pathLessLayout/(auth)/signup")({
 	component: RouteComponent,
 });
 

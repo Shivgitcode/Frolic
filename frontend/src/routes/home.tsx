@@ -2,9 +2,21 @@ import VideoGrid from "@/components/Video/VideoGrid";
 import Navbar from "@/components/layout/Navbar";
 import Sidebar from "@/components/layout/Sidebar";
 import CategoryPill from "@/components/ui/CategoryPill";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 export const Route = createFileRoute("/home")({
+	beforeLoad: ({ context, location }) => {
+		console.log("hello", context.auth?.user);
+		if (!context.auth?.isAuthenticated) {
+			throw redirect({
+				to: "/login",
+				search: {
+					redirect: location.href,
+				},
+			});
+		}
+	},
 	component: Index,
 });
 

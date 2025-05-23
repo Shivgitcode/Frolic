@@ -1,15 +1,41 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Link, useLocation } from "@tanstack/react-router";
-import { Bell, Home, LogIn, Menu, Search, User, Video, X } from "lucide-react";
+import { Link, useLocation, useRouter } from "@tanstack/react-router";
+import {
+	Bell,
+	Home,
+	LogIn,
+	LogOut,
+	Menu,
+	Search,
+	User,
+	Video,
+	X,
+} from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
 	const [searchFocused, setSearchFocused] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
-	const [isAuthenticated, setIsAuthenticated] = useState(false); // This would normally come from auth context
+	const { isAuthenticated, setUser } = useAuth();
 	const location = useLocation();
+	const router = useRouter();
 	const isHomePage = location.pathname === "/home";
+
+	const handleLogout = async () => {
+		try {
+			await authClient.signOut();
+			setUser(null);
+			toast.success("Logged out successfully");
+			router.navigate({ to: "/login" });
+		} catch (error) {
+			toast.error("Failed to logout");
+			console.error("Logout error:", error);
+		}
+	};
 
 	return (
 		<header className="sticky top-0 z-50 w-full glass-effect py-3">
@@ -96,6 +122,15 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
 
 									<Button variant="ghost" size="icon" className="rounded-full">
 										<User className="h-5 w-5" />
+									</Button>
+
+									<Button
+										variant="ghost"
+										size="icon"
+										onClick={handleLogout}
+										title="Logout"
+									>
+										<LogOut className="h-5 w-5" />
 									</Button>
 								</>
 							) : (

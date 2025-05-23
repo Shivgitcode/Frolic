@@ -16,22 +16,26 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuth, type UserProps } from "@/context/AuthContext";
 import { authClient } from "@/lib/auth-client";
 import { type LoginProp, LoginSchema } from "@/validations/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-export const Route = createFileRoute("/_pathLessLayout/login")({
+export const Route = createFileRoute("/_pathLessLayout/(auth)/login")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
+	const { setUser } = useAuth();
 	const form = useForm<LoginProp>({
 		resolver: zodResolver(LoginSchema),
 	});
 	const navigate = Route.useNavigate();
+	const { refetch } = useAuth();
+	const router = useRouter();
 
 	const onSubmit = async (data: LoginProp) => {
 		console.log(data);
@@ -39,13 +43,17 @@ function RouteComponent() {
 			onRequest: () => {
 				toast.loading("logging In", { id: "sign-in" });
 			},
-			onSuccess: () => {
-				toast.success("logged in successfully");
+			onSuccess: async (data) => {
+				try {
+					setUser(data.data.user as UserProps);
+					toast.success("logged in successfully");
+					toast.dismiss("sign-in");
 
-				toast.dismiss("sign-in");
-				navigate({
-					to: "/home",
-				});
+					await router.navigate({ to: "/home" });
+				} catch (error) {
+					console.error("Navigation error:", error);
+					toast.error("Error during login redirect");
+				}
 			},
 			onError: (context) => {
 				toast.error(context.error.message);

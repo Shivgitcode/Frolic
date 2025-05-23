@@ -10,156 +10,210 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as PathLessLayoutLoginImport } from "./routes/_pathLessLayout/login";
-import { Route as PathLessLayoutRouteImport } from "./routes/_pathLessLayout/route";
-import { Route as PathLessLayoutSignupImport } from "./routes/_pathLessLayout/signup";
-import { Route as HomeImport } from "./routes/home";
-import { Route as IndexImport } from "./routes/index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as VideouploadImport } from './routes/videoupload'
+import { Route as HomeImport } from './routes/home'
+import { Route as PathLessLayoutRouteImport } from './routes/_pathLessLayout/route'
+import { Route as IndexImport } from './routes/index'
+import { Route as VideoVideoIdImport } from './routes/video.$videoId'
+import { Route as PathLessLayoutauthSignupImport } from './routes/_pathLessLayout/(auth)/signup'
+import { Route as PathLessLayoutauthLoginImport } from './routes/_pathLessLayout/(auth)/login'
 
 // Create/Update Routes
 
+const VideouploadRoute = VideouploadImport.update({
+  id: '/videoupload',
+  path: '/videoupload',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const HomeRoute = HomeImport.update({
-	id: "/home",
-	path: "/home",
-	getParentRoute: () => rootRoute,
-} as any);
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const PathLessLayoutRouteRoute = PathLessLayoutRouteImport.update({
-	id: "/_pathLessLayout",
-	getParentRoute: () => rootRoute,
-} as any);
+  id: '/_pathLessLayout',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
-	id: "/",
-	path: "/",
-	getParentRoute: () => rootRoute,
-} as any);
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
 
-const PathLessLayoutSignupRoute = PathLessLayoutSignupImport.update({
-	id: "/signup",
-	path: "/signup",
-	getParentRoute: () => PathLessLayoutRouteRoute,
-} as any);
+const VideoVideoIdRoute = VideoVideoIdImport.update({
+  id: '/video/$videoId',
+  path: '/video/$videoId',
+  getParentRoute: () => rootRoute,
+} as any)
 
-const PathLessLayoutLoginRoute = PathLessLayoutLoginImport.update({
-	id: "/login",
-	path: "/login",
-	getParentRoute: () => PathLessLayoutRouteRoute,
-} as any);
+const PathLessLayoutauthSignupRoute = PathLessLayoutauthSignupImport.update({
+  id: '/(auth)/signup',
+  path: '/signup',
+  getParentRoute: () => PathLessLayoutRouteRoute,
+} as any)
+
+const PathLessLayoutauthLoginRoute = PathLessLayoutauthLoginImport.update({
+  id: '/(auth)/login',
+  path: '/login',
+  getParentRoute: () => PathLessLayoutRouteRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
-	interface FileRoutesByPath {
-		"/": {
-			id: "/";
-			path: "/";
-			fullPath: "/";
-			preLoaderRoute: typeof IndexImport;
-			parentRoute: typeof rootRoute;
-		};
-		"/_pathLessLayout": {
-			id: "/_pathLessLayout";
-			path: "";
-			fullPath: "";
-			preLoaderRoute: typeof PathLessLayoutRouteImport;
-			parentRoute: typeof rootRoute;
-		};
-		"/home": {
-			id: "/home";
-			path: "/home";
-			fullPath: "/home";
-			preLoaderRoute: typeof HomeImport;
-			parentRoute: typeof rootRoute;
-		};
-		"/_pathLessLayout/login": {
-			id: "/_pathLessLayout/login";
-			path: "/login";
-			fullPath: "/login";
-			preLoaderRoute: typeof PathLessLayoutLoginImport;
-			parentRoute: typeof PathLessLayoutRouteImport;
-		};
-		"/_pathLessLayout/signup": {
-			id: "/_pathLessLayout/signup";
-			path: "/signup";
-			fullPath: "/signup";
-			preLoaderRoute: typeof PathLessLayoutSignupImport;
-			parentRoute: typeof PathLessLayoutRouteImport;
-		};
-	}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_pathLessLayout': {
+      id: '/_pathLessLayout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PathLessLayoutRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeImport
+      parentRoute: typeof rootRoute
+    }
+    '/videoupload': {
+      id: '/videoupload'
+      path: '/videoupload'
+      fullPath: '/videoupload'
+      preLoaderRoute: typeof VideouploadImport
+      parentRoute: typeof rootRoute
+    }
+    '/video/$videoId': {
+      id: '/video/$videoId'
+      path: '/video/$videoId'
+      fullPath: '/video/$videoId'
+      preLoaderRoute: typeof VideoVideoIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/_pathLessLayout/(auth)/login': {
+      id: '/_pathLessLayout/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof PathLessLayoutauthLoginImport
+      parentRoute: typeof PathLessLayoutRouteImport
+    }
+    '/_pathLessLayout/(auth)/signup': {
+      id: '/_pathLessLayout/(auth)/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof PathLessLayoutauthSignupImport
+      parentRoute: typeof PathLessLayoutRouteImport
+    }
+  }
 }
 
 // Create and export the route tree
 
 interface PathLessLayoutRouteRouteChildren {
-	PathLessLayoutLoginRoute: typeof PathLessLayoutLoginRoute;
-	PathLessLayoutSignupRoute: typeof PathLessLayoutSignupRoute;
+  PathLessLayoutauthLoginRoute: typeof PathLessLayoutauthLoginRoute
+  PathLessLayoutauthSignupRoute: typeof PathLessLayoutauthSignupRoute
 }
 
 const PathLessLayoutRouteRouteChildren: PathLessLayoutRouteRouteChildren = {
-	PathLessLayoutLoginRoute: PathLessLayoutLoginRoute,
-	PathLessLayoutSignupRoute: PathLessLayoutSignupRoute,
-};
+  PathLessLayoutauthLoginRoute: PathLessLayoutauthLoginRoute,
+  PathLessLayoutauthSignupRoute: PathLessLayoutauthSignupRoute,
+}
 
 const PathLessLayoutRouteRouteWithChildren =
-	PathLessLayoutRouteRoute._addFileChildren(PathLessLayoutRouteRouteChildren);
+  PathLessLayoutRouteRoute._addFileChildren(PathLessLayoutRouteRouteChildren)
 
 export interface FileRoutesByFullPath {
-	"/": typeof IndexRoute;
-	"": typeof PathLessLayoutRouteRouteWithChildren;
-	"/home": typeof HomeRoute;
-	"/login": typeof PathLessLayoutLoginRoute;
-	"/signup": typeof PathLessLayoutSignupRoute;
+  '/': typeof IndexRoute
+  '': typeof PathLessLayoutRouteRouteWithChildren
+  '/home': typeof HomeRoute
+  '/videoupload': typeof VideouploadRoute
+  '/video/$videoId': typeof VideoVideoIdRoute
+  '/login': typeof PathLessLayoutauthLoginRoute
+  '/signup': typeof PathLessLayoutauthSignupRoute
 }
 
 export interface FileRoutesByTo {
-	"/": typeof IndexRoute;
-	"": typeof PathLessLayoutRouteRouteWithChildren;
-	"/home": typeof HomeRoute;
-	"/login": typeof PathLessLayoutLoginRoute;
-	"/signup": typeof PathLessLayoutSignupRoute;
+  '/': typeof IndexRoute
+  '': typeof PathLessLayoutRouteRouteWithChildren
+  '/home': typeof HomeRoute
+  '/videoupload': typeof VideouploadRoute
+  '/video/$videoId': typeof VideoVideoIdRoute
+  '/login': typeof PathLessLayoutauthLoginRoute
+  '/signup': typeof PathLessLayoutauthSignupRoute
 }
 
 export interface FileRoutesById {
-	__root__: typeof rootRoute;
-	"/": typeof IndexRoute;
-	"/_pathLessLayout": typeof PathLessLayoutRouteRouteWithChildren;
-	"/home": typeof HomeRoute;
-	"/_pathLessLayout/login": typeof PathLessLayoutLoginRoute;
-	"/_pathLessLayout/signup": typeof PathLessLayoutSignupRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/_pathLessLayout': typeof PathLessLayoutRouteRouteWithChildren
+  '/home': typeof HomeRoute
+  '/videoupload': typeof VideouploadRoute
+  '/video/$videoId': typeof VideoVideoIdRoute
+  '/_pathLessLayout/(auth)/login': typeof PathLessLayoutauthLoginRoute
+  '/_pathLessLayout/(auth)/signup': typeof PathLessLayoutauthSignupRoute
 }
 
 export interface FileRouteTypes {
-	fileRoutesByFullPath: FileRoutesByFullPath;
-	fullPaths: "/" | "" | "/home" | "/login" | "/signup";
-	fileRoutesByTo: FileRoutesByTo;
-	to: "/" | "" | "/home" | "/login" | "/signup";
-	id:
-		| "__root__"
-		| "/"
-		| "/_pathLessLayout"
-		| "/home"
-		| "/_pathLessLayout/login"
-		| "/_pathLessLayout/signup";
-	fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | ''
+    | '/home'
+    | '/videoupload'
+    | '/video/$videoId'
+    | '/login'
+    | '/signup'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | ''
+    | '/home'
+    | '/videoupload'
+    | '/video/$videoId'
+    | '/login'
+    | '/signup'
+  id:
+    | '__root__'
+    | '/'
+    | '/_pathLessLayout'
+    | '/home'
+    | '/videoupload'
+    | '/video/$videoId'
+    | '/_pathLessLayout/(auth)/login'
+    | '/_pathLessLayout/(auth)/signup'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-	IndexRoute: typeof IndexRoute;
-	PathLessLayoutRouteRoute: typeof PathLessLayoutRouteRouteWithChildren;
-	HomeRoute: typeof HomeRoute;
+  IndexRoute: typeof IndexRoute
+  PathLessLayoutRouteRoute: typeof PathLessLayoutRouteRouteWithChildren
+  HomeRoute: typeof HomeRoute
+  VideouploadRoute: typeof VideouploadRoute
+  VideoVideoIdRoute: typeof VideoVideoIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-	IndexRoute: IndexRoute,
-	PathLessLayoutRouteRoute: PathLessLayoutRouteRouteWithChildren,
-	HomeRoute: HomeRoute,
-};
+  IndexRoute: IndexRoute,
+  PathLessLayoutRouteRoute: PathLessLayoutRouteRouteWithChildren,
+  HomeRoute: HomeRoute,
+  VideouploadRoute: VideouploadRoute,
+  VideoVideoIdRoute: VideoVideoIdRoute,
+}
 
 export const routeTree = rootRoute
-	._addFileChildren(rootRouteChildren)
-	._addFileTypes<FileRouteTypes>();
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -169,7 +223,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_pathLessLayout",
-        "/home"
+        "/home",
+        "/videoupload",
+        "/video/$videoId"
       ]
     },
     "/": {
@@ -178,19 +234,25 @@ export const routeTree = rootRoute
     "/_pathLessLayout": {
       "filePath": "_pathLessLayout/route.tsx",
       "children": [
-        "/_pathLessLayout/login",
-        "/_pathLessLayout/signup"
+        "/_pathLessLayout/(auth)/login",
+        "/_pathLessLayout/(auth)/signup"
       ]
     },
     "/home": {
       "filePath": "home.tsx"
     },
-    "/_pathLessLayout/login": {
-      "filePath": "_pathLessLayout/login.tsx",
+    "/videoupload": {
+      "filePath": "videoupload.tsx"
+    },
+    "/video/$videoId": {
+      "filePath": "video.$videoId.tsx"
+    },
+    "/_pathLessLayout/(auth)/login": {
+      "filePath": "_pathLessLayout/(auth)/login.tsx",
       "parent": "/_pathLessLayout"
     },
-    "/_pathLessLayout/signup": {
-      "filePath": "_pathLessLayout/signup.tsx",
+    "/_pathLessLayout/(auth)/signup": {
+      "filePath": "_pathLessLayout/(auth)/signup.tsx",
       "parent": "/_pathLessLayout"
     }
   }

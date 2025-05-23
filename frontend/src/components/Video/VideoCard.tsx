@@ -1,62 +1,54 @@
-import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
+import { formatDistanceToNow } from "date-fns";
 
-interface VideoCardProps {
+interface Video {
+	id: string;
 	title: string;
-	channel: string;
-	thumbnailUrl: string;
-	views: string;
-	timestamp: string;
-	channelImageUrl: string;
-	duration: string;
-	className?: string;
+	description: string | null;
+	category: string;
+	visibility: string;
+	status: string;
+	streamingUrls: { [key: string]: string } | null;
+	userId: string;
+	createdAt: string;
+	updatedAt: string;
 }
 
-const VideoCard = ({
-	title,
-	channel,
-	thumbnailUrl,
-	views,
-	timestamp,
-	channelImageUrl,
-	duration,
-	className,
-}: VideoCardProps) => {
+interface VideoCardProps {
+	video: Video;
+}
+
+export default function VideoCard({ video }: VideoCardProps) {
+	const thumbnailUrl = video.streamingUrls?.["720p"]?.replace(".m3u8", ".jpg");
+
 	return (
-		<div className={cn("space-y-2 hover-scale group", className)}>
+		<Link to="/video/$videoId" params={{ videoId: video.id }} className="group">
 			<div className="relative aspect-video rounded-lg overflow-hidden bg-secondary">
-				<img
-					src={thumbnailUrl}
-					alt={title}
-					className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-					loading="lazy"
-				/>
-				<div className="absolute bottom-2 right-2 py-0.5 px-1.5 bg-black/80 text-white text-xs font-medium rounded">
-					{duration}
-				</div>
-			</div>
-
-			<div className="flex gap-3">
-				<div className="flex-shrink-0">
-					<div className="w-9 h-9 rounded-full overflow-hidden">
-						<img
-							src={channelImageUrl}
-							alt={channel}
-							className="w-full h-full object-cover"
-							loading="lazy"
-						/>
+				{thumbnailUrl ? (
+					<img
+						src={thumbnailUrl}
+						alt={video.title}
+						className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+					/>
+				) : (
+					<div className="w-full h-full flex items-center justify-center">
+						<p className="text-sm text-muted-foreground">No thumbnail</p>
 					</div>
-				</div>
-
-				<div>
-					<h3 className="font-medium line-clamp-2 text-foreground">{title}</h3>
-					<p className="text-sm text-muted-foreground">{channel}</p>
-					<p className="text-sm text-muted-foreground">
-						{views} • {timestamp}
-					</p>
-				</div>
+				)}
+				{video.status === "PROCESSING" && (
+					<div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+						<p className="text-sm text-white">Processing...</p>
+					</div>
+				)}
 			</div>
-		</div>
+			<div className="mt-2">
+				<h3 className="font-medium line-clamp-2 group-hover:text-primary transition-colors">
+					{video.title}
+				</h3>
+				<p className="text-sm text-muted-foreground mt-1">
+					{formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}
+				</p>
+			</div>
+		</Link>
 	);
-};
-
-export default VideoCard;
+}

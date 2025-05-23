@@ -22,4 +22,8 @@ export const auth = betterAuth({
 		enabled: true,
 	},
 	trustedOrigins: ["http://localhost:5173"],
+	session: {
+		expiresIn: 7 * 24 * 60 * 60, // 7 days in seconds
+		updateAge: 24 * 60 * 60, // 1 day in seconds
+	},
 });

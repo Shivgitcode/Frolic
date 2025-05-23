@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Link, useLocation } from "@tanstack/react-router";
 import {
 	Clock,
 	Film,
@@ -12,6 +13,8 @@ import {
 	PlaySquare,
 	ThumbsUp,
 	Trophy,
+	Upload,
+	User,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -20,25 +23,35 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ isOpen, className }: SidebarProps) => {
+	const location = useLocation();
+
+	// Helper to check if a path is active
+	const isActive = (path: string) => {
+		return (
+			location.pathname === path || location.pathname.startsWith(`${path}/`)
+		);
+	};
 	const mainNavItems = [
-		{ icon: Home, label: "Home", active: true },
-		{ icon: Flame, label: "Trending" },
-		{ icon: PlaySquare, label: "Subscriptions" },
+		{ icon: Home, label: "Home", path: "/home" },
+		{ icon: Flame, label: "Trending", path: "/trending" },
+		{ icon: PlaySquare, label: "Subscriptions", path: "/subscriptions" },
+		{ icon: Upload, label: "Upload Video", path: "/videoupload" },
+		{ icon: User, label: "My Profile", path: "/profile" },
 	];
 
 	const libraryItems = [
-		{ icon: History, label: "History" },
-		{ icon: Clock, label: "Watch Later" },
-		{ icon: ThumbsUp, label: "Liked Videos" },
+		{ icon: History, label: "History", path: "/history" },
+		{ icon: Clock, label: "Watch Later", path: "/watch-later" },
+		{ icon: ThumbsUp, label: "Liked Videos", path: "/liked" },
 	];
 
 	const exploreItems = [
-		{ icon: Music, label: "Music" },
-		{ icon: Film, label: "Movies" },
-		{ icon: Gamepad2, label: "Gaming" },
-		{ icon: Newspaper, label: "News" },
-		{ icon: Trophy, label: "Sports" },
-		{ icon: Lightbulb, label: "Learning" },
+		{ icon: Music, label: "Music", path: "/explore/music" },
+		{ icon: Film, label: "Movies", path: "/explore/movies" },
+		{ icon: Gamepad2, label: "Gaming", path: "/explore/gaming" },
+		{ icon: Newspaper, label: "News", path: "/explore/news" },
+		{ icon: Trophy, label: "Sports", path: "/explore/sports" },
+		{ icon: Lightbulb, label: "Learning", path: "/explore/learning" },
 	];
 
 	return (
@@ -52,15 +65,25 @@ const Sidebar = ({ isOpen, className }: SidebarProps) => {
 			<div className="h-full py-4 px-3 overflow-y-auto">
 				<nav className="space-y-6">
 					<div className="space-y-1">
-						{mainNavItems.map((item, index) => (
-							<a
-								key={index}
-								href="#"
-								className={cn("nav-item", item.active && "active")}
+						{mainNavItems.map((item) => (
+							<Link
+								key={item.path}
+								to={item.path}
+								className={cn(
+									"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+									isActive(item.path)
+										? "bg-primary/10 text-primary"
+										: "text-foreground hover:bg-accent hover:text-accent-foreground",
+								)}
 							>
-								<item.icon className="sidebar-icon" />
+								<item.icon
+									className={cn(
+										"h-5 w-5",
+										isActive(item.path) ? "text-primary" : "",
+									)}
+								/>
 								<span>{item.label}</span>
-							</a>
+							</Link>
 						))}
 					</div>
 
@@ -69,11 +92,25 @@ const Sidebar = ({ isOpen, className }: SidebarProps) => {
 							Library
 						</h3>
 						<div className="space-y-1">
-							{libraryItems.map((item, index) => (
-								<a key={index} href="#" className="nav-item">
-									<item.icon className="sidebar-icon" />
+							{libraryItems.map((item) => (
+								<Link
+									key={item.path}
+									to={item.path}
+									className={cn(
+										"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+										isActive(item.path)
+											? "bg-primary/10 text-primary"
+											: "text-foreground hover:bg-accent hover:text-accent-foreground",
+									)}
+								>
+									<item.icon
+										className={cn(
+											"h-5 w-5",
+											isActive(item.path) ? "text-primary" : "",
+										)}
+									/>
 									<span>{item.label}</span>
-								</a>
+								</Link>
 							))}
 						</div>
 					</div>
@@ -83,11 +120,25 @@ const Sidebar = ({ isOpen, className }: SidebarProps) => {
 							Explore
 						</h3>
 						<div className="space-y-1">
-							{exploreItems.map((item, index) => (
-								<a key={index} href="#" className="nav-item">
-									<item.icon className="sidebar-icon" />
+							{exploreItems.map((item) => (
+								<Link
+									key={item.path}
+									to={item.path}
+									className={cn(
+										"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+										isActive(item.path)
+											? "bg-primary/10 text-primary"
+											: "text-foreground hover:bg-accent hover:text-accent-foreground",
+									)}
+								>
+									<item.icon
+										className={cn(
+											"h-5 w-5",
+											isActive(item.path) ? "text-primary" : "",
+										)}
+									/>
 									<span>{item.label}</span>
-								</a>
+								</Link>
 							))}
 						</div>
 					</div>
